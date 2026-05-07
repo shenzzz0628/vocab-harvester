@@ -1,0 +1,7 @@
+node_modules/
+*.exe
+simdjson.cpp
+simdjson.h
+main.cpp
+*.output
+/tasks/

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>CET-4 背单词</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">CET-4</p>
+          <h1>背单词</h1>
+        </div>
+        <button class="icon-button" id="shuffleBtn" type="button" aria-label="换一组">
+          <span aria-hidden="true">↻</span>
+        </button>
+      </header>
+
+      <section class="stats-grid" aria-label="学习统计">
+        <div class="stat">
+          <span id="scoreValue">0</span>
+          <small>积分</small>
+        </div>
+        <div class="stat">
+          <span id="comboValue">0</span>
+          <small>连对</small>
+        </div>
+        <div class="stat">
+          <span id="doneValue">0</span>
+          <small>已练</small>
+        </div>
+      </section>
+
+      <section class="control-row" aria-label="学习模式">
+        <button class="segmented active" id="typeModeBtn" type="button">拼写</button>
+        <button class="segmented" id="cardModeBtn" type="button">卡片</button>
+        <button class="segmented" id="weakModeBtn" type="button">错词</button>
+      </section>
+
+      <section class="word-panel" aria-live="polite">
+        <div class="loading" id="loadingView">
+          <div class="loader"></div>
+          <p>正在加载词库...</p>
+        </div>
+
+        <div class="word-card hidden" id="studyView">
+          <div class="card-head">
+            <span class="tag" id="bookTag">CET4</span>
+            <button class="icon-button small" id="speakBtn" type="button" aria-label="朗读单词">
+              <span aria-hidden="true">🔊</span>
+            </button>
+          </div>
+
+          <div class="prompt">
+            <p class="label">中文释义</p>
+            <p class="translation" id="translationText"></p>
+          </div>
+
+          <div class="example-block" id="exampleBlock">
+            <p class="label">例句</p>
+            <p id="exampleCn"></p>
+          </div>
+
+          <form class="answer-form" id="answerForm">
+            <input
+              id="answerInput"
+              autocomplete="off"
+              autocapitalize="none"
+              spellcheck="false"
+              inputmode="latin"
+              placeholder="输入英文单词"
+            />
+            <button class="primary-button" id="submitBtn" type="submit">确认</button>
+          </form>
+
+          <div class="result hidden" id="resultBox">
+            <div>
+              <p class="label">答案</p>
+              <p class="answer" id="answerText"></p>
+            </div>
+            <p id="exampleEn"></p>
+          </div>
+
+          <div class="action-row">
+            <button class="secondary-button" id="showBtn" type="button">看答案</button>
+            <button class="secondary-button" id="wrongBtn" type="button">不认识</button>
+            <button class="primary-button" id="nextBtn" type="button">下一个</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="drawer">
+        <div class="drawer-head">
+          <h2>词库</h2>
+          <span id="totalValue">0 词</span>
+        </div>
+        <input id="searchInput" class="search" placeholder="搜索单词" autocomplete="off" />
+        <div class="word-list" id="wordList"></div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
