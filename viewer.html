@@ -60,27 +60,27 @@ button,input{font:inherit;outline:none}button{cursor:pointer;background:none;bor
 .loading{display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--mu);flex:1;justify-content:center}
 .ldr{width:28px;height:28px;border:3px solid var(--ln);border-top-color:var(--ac);border-radius:50%;animation:spin .7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
 
-.card-wrap{width:700px;max-width:100%}
-.scard{padding:38px 46px;background:var(--sur);border-radius:20px;border:1px solid var(--ln);box-shadow:0 1px 3px rgba(0,0,0,.03),0 16px 48px rgba(28,25,23,.09);animation:cin .28s ease}@keyframes cin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card-wrap{width:760px;max-width:100%}
+.scard{padding:44px 52px;background:var(--sur);border-radius:20px;border:1px solid var(--ln);box-shadow:0 1px 3px rgba(0,0,0,.03),0 16px 48px rgba(28,25,23,.09);animation:cin .28s ease}@keyframes cin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .scard.ok{box-shadow:0 0 0 3px var(--su),0 16px 48px rgba(28,25,23,.09)}.scard.no{box-shadow:0 0 0 3px var(--da),0 16px 48px rgba(28,25,23,.09)}
 .lvlrow{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:18px}
 .ldot{width:8px;height:8px;border-radius:50%;background:#d6d3d0;transition:all .3s}.ldot.fil{background:var(--ac)}.ldot.mst{background:var(--pu);box-shadow:0 0 5px rgba(124,58,237,.3)}
-.lvltxt{font-size:11px;font-weight:700;color:var(--mu);letter-spacing:.3px}
+.lvltxt{font-size:12px;font-weight:700;color:var(--mu);letter-spacing:.3px}
 .wzone{text-align:center;margin-bottom:24px;position:relative}
 .word{font-size:clamp(30px,7vw,50px);font-weight:900;letter-spacing:-.7px;line-height:1.1;color:var(--ink);margin-bottom:2px;cursor:pointer;user-select:none;transition:filter .3s,opacity .3s}.word.blr{filter:blur(10px);opacity:.1}
 .wblur{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;font-size:12px;color:var(--mu);opacity:0;transition:opacity .2s}.word.blr~.wblur{opacity:1}
-.pron{font-size:16px;color:var(--mu);font-family:Georgia,serif;font-style:italic;display:flex;align-items:center;justify-content:center;gap:6px}
+.pron{font-size:18px;color:var(--mu);font-family:Georgia,serif;font-style:italic;display:flex;align-items:center;justify-content:center;gap:6px}
 .spbtn{width:30px;height:30px;border-radius:50%;background:var(--s2);font-size:14px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--ln);flex-shrink:0}.spbtn:hover{background:var(--s3)}
 
 .trans{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;justify-content:center}
-.tpos{font-size:10px;font-weight:800;color:#0f766e;background:var(--ad);padding:3px 8px;border-radius:4px}.tmean{font-size:17px;color:var(--ink);font-weight:550}
+.tpos{font-size:11px;font-weight:800;color:#0f766e;background:var(--ad);padding:3px 10px;border-radius:4px}.tmean{font-size:18px;color:var(--ink);font-weight:600}
 
 .sents{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
-.sent{padding:16px 18px;background:var(--s2);border-radius:var(--rs);border-left:4px solid var(--ac)}.sent .en{font-size:16px;line-height:1.6;color:var(--ink);font-weight:500;margin-bottom:4px}.sent .cn{font-size:14px;color:var(--ik2);line-height:1.55}
+.sent{padding:18px 20px;background:var(--s2);border-radius:var(--rs);border-left:5px solid var(--ac)}.sent .en{font-size:18px;line-height:1.65;color:var(--ink);font-weight:500;margin-bottom:4px}.sent .cn{font-size:16px;color:var(--ik2);line-height:1.6}
 
 .extras{margin-bottom:18px}
 .xsec{border:1px solid var(--ln);border-radius:var(--rs);background:var(--s2);margin-bottom:6px;overflow:hidden}
-.xsec summary{padding:9px 14px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--mu);cursor:pointer;list-style:none;display:flex;align-items:center;gap:4px;user-select:none}.xsec summary::-webkit-details-marker{display:none}.xsec summary::before{content:'▸';font-size:8px;width:10px;transition:transform .15s}.xsec[open] summary::before{transform:rotate(90deg)}.xsec summary:hover{color:var(--ink)}.xbody{padding:0 14px 10px}.xline{font-size:13px;line-height:1.6;color:var(--ik2);margin-bottom:2px}.xline b{color:var(--ink);font-weight:600}
+.xsec summary{padding:10px 16px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--mu);cursor:pointer;list-style:none;display:flex;align-items:center;gap:4px;user-select:none}.xsec summary::-webkit-details-marker{display:none}.xsec summary::before{content:'▸';font-size:8px;width:10px;transition:transform .15s}.xsec[open] summary::before{transform:rotate(90deg)}.xsec summary:hover{color:var(--ink)}.xbody{padding:0 16px 12px}.xline{font-size:15px;line-height:1.7;color:var(--ik2);margin-bottom:4px}.xline b{color:var(--ink);font-weight:700}
 
 .acts{display:flex;gap:10px;margin-bottom:16px}
 .act{flex:1;height:48px;border-radius:var(--rs);font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .15s;border:2px solid transparent}
@@ -92,19 +92,19 @@ button,input{font:inherit;outline:none}button{cursor:pointer;background:none;bor
 .narr{width:36px;height:36px;border-radius:50%;font-size:14px;color:var(--mu);border:1px solid var(--ln);display:flex;align-items:center;justify-content:center;transition:all .15s}.narr:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
 .npos{font-size:12px;font-weight:700;color:var(--mu);min-width:60px;text-align:center}
 
-.wtree{width:600px;max-width:100%;padding:26px 30px;background:var(--sur);border-radius:16px;border:1px solid var(--ln);box-shadow:0 8px 40px rgba(28,25,23,.08)}
-.wtword{font-size:34px;font-weight:900;letter-spacing:-.5px;color:#0f766e;text-align:center;margin-bottom:4px}
+.wtree{width:720px;max-width:100%;padding:26px 30px;background:var(--sur);border-radius:16px;border:1px solid var(--ln);box-shadow:0 8px 40px rgba(28,25,23,.08)}
+.wtword{font-size:38px;font-weight:900;letter-spacing:-.5px;color:#0f766e;text-align:center;margin-bottom:4px}
 .wtpron{text-align:center;font-size:14px;color:var(--mu);font-style:italic;margin-bottom:18px;font-family:Georgia,serif}
-.wtb{margin:5px 0 5px 16px}.wtbh{display:flex;align-items:center;gap:4px;font-weight:700;font-size:13px;color:var(--ink);cursor:pointer;user-select:none;padding:3px 0;transition:color .1s}.wtbh:hover{color:var(--ac)}.wtba{font-size:8px;color:var(--mu);width:12px;flex-shrink:0;transition:transform .15s}.wtba.op{transform:rotate(90deg)}.wtbb{overflow:hidden;transition:max-height .25s}.wtbb.cl{max-height:0!important}
-.wtl{padding:2px 0 2px 22px;font-size:12px;color:var(--ik2);line-height:1.5}.wtl .tpos{font-size:9px;margin-right:4px}
+.wtb{margin:5px 0 5px 16px}.wtbh{display:flex;align-items:center;gap:4px;font-weight:700;font-size:15px;color:var(--ink);cursor:pointer;user-select:none;padding:3px 0;transition:color .1s}.wtbh:hover{color:var(--ac)}.wtba{font-size:8px;color:var(--mu);width:12px;flex-shrink:0;transition:transform .15s}.wtba.op{transform:rotate(90deg)}.wtbb{overflow:hidden;transition:max-height .25s}.wtbb.cl{max-height:0!important}
+.wtl{padding:3px 0 3px 22px;font-size:14px;color:var(--ik2);line-height:1.6}.wtl .tpos{font-size:9px;margin-right:4px}
 .wtleaf-s{margin-left:6px;padding:3px 8px;font-size:11px;color:var(--mu);border-left:2px solid var(--ln)}
 
 .tblbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;width:100%}
 .tblttl{font-size:13px;font-weight:700}.backbtn{padding:6px 12px;border-radius:var(--rx);font-size:11px;font-weight:600;color:#0f766e;background:var(--ad)}.backbtn:hover{background:rgba(13,148,136,.15)}
 .tblwrap{overflow-x:auto;border:1px solid var(--ln);border-radius:var(--ra);background:var(--sur);width:100%}
-table{width:100%;border-collapse:collapse;font-size:12px}thead{position:sticky;top:0;z-index:2}
-th{padding:8px 12px;background:var(--s2);border-bottom:2px solid var(--ln);text-align:left;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.3px;white-space:nowrap;cursor:pointer;color:var(--ik2)}th:hover{background:#dde6e1}
-td{padding:7px 12px;border-bottom:1px solid var(--ln);max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}tr{cursor:pointer;transition:background .1s}tr:hover td{background:#f8faf9}tr:last-child td{border-bottom:none}
+table{width:100%;border-collapse:collapse;font-size:14px}thead{position:sticky;top:0;z-index:2}
+th{padding:10px 14px;background:var(--s2);border-bottom:2px solid var(--ln);text-align:left;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.3px;white-space:nowrap;cursor:pointer;color:var(--ik2)}th:hover{background:#dde6e1}
+td{padding:9px 14px;border-bottom:1px solid var(--ln);max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}tr{cursor:pointer;transition:background .1s}tr:hover td{background:#f8faf9}tr:last-child td{border-bottom:none}
 .pager{display:flex;align-items:center;justify-content:center;gap:3px;margin-top:10px}.pager button{min-width:28px;height:28px;border-radius:var(--rx);font-size:11px;font-weight:600;color:var(--ik2);border:1px solid var(--ln);background:var(--sur)}.pager button:hover{background:var(--s2)}.pager button.ac{border-color:var(--ac);background:var(--ac);color:#fff}.pager button:disabled{opacity:.3;cursor:default}.pinfo{padding:0 3px;color:var(--mu);font-size:11px}
 
 .tree-wrap{border:1px solid var(--ln);border-radius:var(--ra);background:var(--sur);padding:12px 16px;width:100%;font-size:12px;font-family:"SF Mono","Fira Code","Consolas",monospace;line-height:1.6;overflow-x:auto}
@@ -177,7 +177,7 @@ td{padding:7px 12px;border-bottom:1px solid var(--ln);max-width:220px;overflow:h
 <button class="dbtn2 exp" id="expbtn">📤 导出学习数据</button>
 <button class="dbtn2 imp" id="impbtn">📥 导入学习数据</button>
 <input type="file" id="impfin" accept=".json" hidden>
-<p class="sethint">数据保存在浏览器本地，不会上传</p><div class="mrow" style="margin-top:12px"><label>⌨ 快捷键</label><div style="font-size:11px;color:var(--ik2);line-height:1.6"><b>← →</b> 前后翻词 &nbsp;<b>空格</b> 下一个<br><b>1/A</b> 不认识 &nbsp;<b>2/D</b> 认识 &nbsp;<b>3/S/F</b> 显隐<br><b>R</b> 朗读 &nbsp;<b>Esc</b> 返回卡片视图</div></div>
+<p class="sethint" style="color:var(--ac);font-weight:600">v2.2 · 数据保存在浏览器本地</p><div class="mrow" style="margin-top:12px"><label>⌨ 快捷键</label><div style="font-size:11px;color:var(--ik2);line-height:1.6"><b>← →</b> 前后翻词 &nbsp;<b>空格</b> 下一个<br><b>1/A</b> 不认识 &nbsp;<b>2/D</b> 认识 &nbsp;<b>3/S/F</b> 显隐<br><b>R</b> 朗读 &nbsp;<b>Esc</b> 返回卡片视图</div></div>
 </div></div></div>
 
 <script>
