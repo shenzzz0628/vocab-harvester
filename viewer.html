@@ -193,6 +193,14 @@ function svs(){localStorage.setItem(SK,JSON.stringify(store))}
 let df=null, items=[], q=[], qi=0, filter='all', mode='smart', srch='', tpage=0, flc=false;
 const PS=100;
 let cfiles=[];
+// ─── IndexedDB ────────────────────────────────────────────────
+const DB_NAME='vh_files', DB_VER=1;
+function idb(){return new Promise((ok,err)=>{let r=indexedDB.open(DB_NAME,DB_VER);r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains('files'))r.result.createObjectStore('files')};r.onsuccess=()=>ok(r.result);r.onerror=err})}
+async function idbSave(name,content){let db=await idb();return new Promise((ok,err)=>{let t=db.transaction('files','readwrite'),s=t.objectStore('files');s.put({name,content,time:Date.now()},name);t.oncomplete=ok;t.onerror=err})}
+async function idbLoad(name){let db=await idb();return new Promise((ok,err)=>{let t=db.transaction('files','readonly'),s=t.objectStore('files'),r=s.get(name);r.onsuccess=()=>ok(r.result);r.onerror=err})}
+async function idbList(){let db=await idb();return new Promise((ok,err)=>{let t=db.transaction('files','readonly'),s=t.objectStore('files'),r=s.getAll();r.onsuccess=()=>ok(r.result);r.onerror=err})}
+async function idbDelete(name){let db=await idb();return new Promise((ok,err)=>{let t=db.transaction('files','readwrite'),s=t.objectStore('files');s.delete(name);t.oncomplete=ok;t.onerror=err})}
+
 
 // ─── Helpers ───────────────────────────────────────────────
 function io(v){return v!==null&&typeof v==='object'&&!Array.isArray(v)}
@@ -246,15 +254,19 @@ function loadFromJson(json,filename){
 }
 async function loadFile(filename){
   showV('ldv');
-  try{let r=await fetch(filename);if(!r.ok)throw Error('fail');loadFromJson(await r.json(),filename)}
-  catch(e){$('shint').textContent='❌ '+e.message;showV('welc')}
+  try{let r=await fetch(filename);if(!r.ok)throw Error('fail');loadFromJson(await r.json(),filename);return}catch{}
+  try{let entry=await idbLoad(filename);if(entry){loadFromJson(JSON.parse(entry.content),filename);return}}catch{}
+  $('shint').textContent='\u274c \u52a0\u8f7d\u5931\u8d25: '+filename;showV('welc')
 }
-function handleFiles(fl){
+async function handleFiles(fl){
   let files=[...fl].filter(f=>f.name.endsWith('.json'));
-  if(!files.length){toast('请选择 JSON 文件');return}
-  showV('ldv');let f=files[0],rd=new FileReader();
-  rd.onload=()=>{try{loadFromJson(JSON.parse(rd.result),f.name);toast('✅ 已加载 '+f.name)}catch{toast('❌ JSON 解析失败');showV('welc')}};
-  rd.readAsText(f);
+  if(!files.length){toast('\u8bf7\u9009\u62e9 JSON \u6587\u4ef6');return}
+  showV('ldv');let f=files[0];
+  let raw=await new Promise((ok,err)=>{let rd=new FileReader();rd.onload=()=>ok(rd.result);rd.onerror=err;rd.readAsText(f)});
+  try{await idbSave(f.name,raw)}catch(e){console.warn('IDB save failed',e)}
+  try{await fetch('/api/upload?name='+encodeURIComponent(f.name),{method:'POST',body:raw,headers:{'Content-Type':'application/json'}})}catch{}
+  try{loadFromJson(JSON.parse(raw),f.name);toast('\u5df2\u52a0\u8f7d '+f.name)}catch{toast('JSON \u89e3\u6790\u5931\u8d25');showV('welc')}
+  await loadFileList();renderFiles();
 }
 
 // ─── Queue ─────────────────────────────────────────────────
@@ -375,9 +387,13 @@ function renderSide(){
   })});
 }
 async function loadFileList(){
-  try{let r=await fetch('/api/files');if(r.ok){cfiles=await r.json();$('shint').textContent='已连接 · '+cfiles.length+' 个词库';return cfiles}}catch{}
-  try{let r=await fetch('/files.json');if(r.ok){cfiles=await r.json();$('shint').textContent='在线模式 · '+cfiles.length+' 个词库';return cfiles}}catch{}
-  cfiles=[];$('shint').textContent='离线模式 · 拖拽 JSON 文件上传';return cfiles;
+  cfiles=[];
+  try{let r=await fetch('/api/files');if(r.ok){cfiles=await r.json()}}catch{}
+  try{let idbFiles=await idbList();for(let f of idbFiles){if(!cfiles.some(x=>x.name===f.name)){cfiles.push({name:f.name,size:new Blob([f.content]).size,fromIdb:true})}}}catch{}
+  if(cfiles.length===0){try{let r=await fetch('/files.json');if(r.ok)cfiles=await r.json()}catch{}}
+  if(cfiles.length)$('shint').textContent='\u5df2\u8fde\u63a5 \u00b7 '+cfiles.length+' \u4e2a\u8bcd\u5e93';
+  else $('shint').textContent='\u62d6\u62fd JSON \u6587\u4ef6\u4e0a\u4f20';
+  return cfiles;
 }
 function renderFiles(){
   let fl=$('flist'),files=cfiles||[],h='';
