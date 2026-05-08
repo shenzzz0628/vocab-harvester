@@ -119,7 +119,7 @@ td{padding:7px 12px;border-bottom:1px solid var(--ln);max-width:220px;overflow:h
 
 .toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:8px 20px;border-radius:20px;font-size:13px;font-weight:700;z-index:200;pointer-events:none;animation:tIn .3s ease,tOut .3s ease 2s forwards}
 @keyframes tIn{from{opacity:0;transform:translateX(-50%) translateY(-18px)}}@keyframes tOut{to{opacity:0;transform:translateX(-50%) translateY(-18px)}}
-
+.fitem-wrap{display:flex;align-items:center;gap:0}.fitem-wrap .fitem{flex:1}.fdel{width:22px;height:22px;border-radius:50%;font-size:11px;color:var(--mu);display:flex;align-items:center;justify-content:center;flex-shrink:0;opacity:0;transition:opacity .15s}.fitem-wrap:hover .fdel{opacity:1}.fdel:hover{background:var(--db);color:var(--da)}.fidb{font-size:9px;color:var(--ac);font-weight:600}.fup{font-size:9px;padding:1px 5px;border-radius:6px;background:var(--ad);color:#0f766e;font-weight:700}
 @media(max-width:780px){
 .side{position:fixed;left:-280px;top:0;bottom:0;width:280px;min-width:280px;box-shadow:4px 0 25px rgba(0,0,0,.12)}.side.op{left:0}
 .sbar{gap:6px;padding:5px 10px}.sd{display:none}.sl{display:none}.mbtn{font-size:9px;padding:0 6px}
@@ -177,7 +177,7 @@ td{padding:7px 12px;border-bottom:1px solid var(--ln);max-width:220px;overflow:h
 <button class="dbtn2 exp" id="expbtn">📤 导出学习数据</button>
 <button class="dbtn2 imp" id="impbtn">📥 导入学习数据</button>
 <input type="file" id="impfin" accept=".json" hidden>
-<p class="sethint">数据保存在浏览器本地，不会上传</p>
+<p class="sethint">数据保存在浏览器本地，不会上传</p><div class="mrow" style="margin-top:12px"><label>⌨ 快捷键</label><div style="font-size:11px;color:var(--ik2);line-height:1.6"><b>← →</b> 前后翻词 &nbsp;<b>空格</b> 下一个<br><b>1/A</b> 不认识 &nbsp;<b>2/D</b> 认识 &nbsp;<b>3/S/F</b> 显隐<br><b>R</b> 朗读 &nbsp;<b>Esc</b> 返回卡片视图</div></div>
 </div></div></div>
 
 <script>
@@ -378,13 +378,17 @@ function onSpk(){if(!q.length)return;let it=items[q[qi]];if(!('speechSynthesis' 
 // ─── Sidebar ───────────────────────────────────────────────
 function renderSide(){
   let idxs=filtIdxs(),max=200,shown=idxs.slice(0,max);
+  let cur=q.length>0?q[qi]:-1;
+  if(cur>=0&&!shown.includes(cur)) shown.push(cur);
   $('wlist').innerHTML=shown.map(i=>{
     let it=items[i],w=ws(it.id),ac=q.length>0&&q[qi]===i;
     return '<button class="wli'+(ac?' ac':'')+'" data-i="'+i+'"><span class="ww">'+it.word+'</span><span class="wdot l'+Math.min(w.level,MAXL)+'"></span></button>';
-  }).join('')+(idxs.length>max?'<p style="text-align:center;color:var(--mu);font-size:10px;padding:6px">... 还有 '+(idxs.length-max)+' 个</p>':'');
+  }).join('')+(idxs.length>max&&!shown.includes(idxs[max])?'<p style="text-align:center;color:var(--mu);font-size:10px;padding:6px">... 还有 '+(idxs.length-max)+' 个</p>':'');
   $('wlist').querySelectorAll('.wli').forEach(btn=>{btn.addEventListener('click',()=>{
     let i=parseInt(btn.dataset.i),p=q.indexOf(i);if(p>=0)qi=p;else{q=[i,...q.filter(j=>j!==i)];qi=0}flc=false;renderCard();
+    if(window.innerWidth<780) $('side').classList.remove('op');
   })});
+  if(cur>=0) requestAnimationFrame(()=>{let a=$('wlist').querySelector('.wli.ac');if(a)a.scrollIntoView({block:'center',behavior:'smooth'})});
 }
 async function loadFileList(){
   cfiles=[];
@@ -397,12 +401,15 @@ async function loadFileList(){
 }
 function renderFiles(){
   let fl=$('flist'),files=cfiles||[],h='';
-  if(files.length)h+=files.map(f=>'<button class="fitem'+(df===f.name?' ac':'')+'" data-f="'+f.name+'"><span class="fi">📄</span><span class="fn">'+f.name+'</span><span class="fs">'+fs(f.size)+'</span></button>').join('');
-  if(df&&!files.some(f=>f.name===df))h+='<button class="fitem ac" data-f="'+df+'"><span class="fi">📂</span><span class="fn">'+df+'</span><span style="font-size:9px;padding:1px 5px;border-radius:6px;background:var(--ad);color:#0f766e;font-weight:700">已上传</span></button>';
+  if(files.length)h+=files.map(f=>{
+    let isIdb=f.fromIdb&&!files.some(x=>!x.fromIdb&&x.name===f.name);
+    return '<div class="fitem-wrap"><button class="fitem'+(df===f.name?' ac':'')+'" data-f="'+f.name+'"><span class="fi">'+(f.fromIdb?'📂':'📄')+'</span><span class="fn">'+f.name+'</span><span class="fs">'+fs(f.size)+(f.fromIdb?' <span class="fidb">本地</span>':'')+'</span></button>'+(isIdb?'<button class="fdel" data-f="'+f.name+'" title="删除">&times;</button>':'')+'</div>';
+  }).join('');
+  if(df&&!files.some(f=>f.name===df))h+='<div class="fitem-wrap"><button class="fitem ac" data-f="'+df+'"><span class="fi">📂</span><span class="fn">'+df+'</span><span class="fup">已上传</span></button></div>';
   if(!h)h='<p style="font-size:11px;color:var(--mu);padding:6px 4px">无词库文件</p>';
   fl.innerHTML=h;
   fl.querySelectorAll('.fitem').forEach(btn=>{btn.addEventListener('click',()=>{let n=btn.dataset.f;if(n!==df){if(cfiles.some(f=>f.name===n))loadFile(n);else toast('此文件已加载')}})});
-}
+  fl.querySelectorAll('.fdel').forEach(btn=>{btn.addEventListener('click',e=>{e.stopPropagation();let n=btn.dataset.f;if(confirm('删除 '+n+' 吗？')){idbDelete(n).then(()=>{cfiles=cfiles.filter(f=>f.name!==n);if(df===n){df=null;items=[];q=[];qi=0;showV('welc')}renderFiles();toast('已删除 '+n)}).catch(()=>toast('删除失败'))}})})}
 
 // ─── Word Tree ─────────────────────────────────────────────
 function renderWTree(){
