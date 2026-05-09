@@ -1,9 +1,9 @@
 @echo off
 chcp 65001 >nul
-title 单词收割机
+title 别时容易见时难
 echo.
 echo ============================
-echo   单词收割机 - Word Harvester
+echo   别时容易见时难
 echo ============================
 echo.
 echo 正在启动服务器...

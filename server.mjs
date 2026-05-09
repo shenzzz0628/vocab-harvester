@@ -93,5 +93,5 @@ createServer((request, response) => {
   });
   createReadStream(filePath).pipe(response);
 }).listen(port, () => {
-  console.log(`单词收割机已启动 → http://localhost:${port}`);
+  console.log(`别时容易见时难 → http://localhost:${port}`);
 });
