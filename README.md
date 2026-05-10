@@ -75,3 +75,13 @@ CET-4 词汇数据共 7508 词，分为 3 个文件：
 | CET4_3.json | 2607 词 | 5.9 MB |
 
 **[点击下载全部词库（CET4_all.zip，4.8 MB）](https://raw.githubusercontent.com/shenzzz0628/vocab-harvester/master/CET4_all.zip)**
+
+CET-6 词汇数据，分为 3 个文件：
+
+| 文件 | 大小 |
+|------|------|
+| CET6_1.json | 2.7 MB |
+| CET6_2.json | 3.9 MB |
+| CET6_3.json | 5.0 MB |
+
+**[点击下载全部词库（CET6_all.zip，3.2 MB）](https://raw.githubusercontent.com/shenzzz0628/vocab-harvester/master/CET6_all.zip)**
