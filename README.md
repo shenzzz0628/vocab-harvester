@@ -64,10 +64,14 @@ node server.mjs
 - Node.js 静态服务器（上传接口 + 动态文件列表）
 - GitHub Pages 在线托管
 
-## 词库来源
+## 词库下载
 
 CET-4 词汇数据共 7508 词，分为 3 个文件：
 
-- CET4_1.json — 1162 词
-- CET4_2.json — 3739 词
-- CET4_3.json — 2607 词
+| 文件 | 词数 | 大小 |
+|------|------|------|
+| CET4_1.json | 1162 词 | 2.8 MB |
+| CET4_2.json | 3739 词 | 9.2 MB |
+| CET4_3.json | 2607 词 | 5.9 MB |
+
+**[点击下载全部词库（CET4_all.zip，4.8 MB）](https://raw.githubusercontent.com/shenzzz0628/vocab-harvester/master/CET4_all.zip)**
