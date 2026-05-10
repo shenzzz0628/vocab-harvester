@@ -6,6 +6,22 @@
 <title>别时容易见时难</title>
 <style>
 :root{--bg:#f6f4f1;--sur:#fff;--s2:#f2f0ec;--s3:#e7e4df;--ink:#1b1816;--ik2:#45413d;--mu:#7d7872;--ln:#e9e6e2;--ac:#0d9488;--ad:rgba(13,148,136,0.08);--su:#16a34a;--sb:#f0fdf4;--da:#dc2626;--db:#fef2f2;--am:#d97706;--bl:#2563eb;--pu:#7c3aed;--ra:16px;--rs:10px;--rx:8px}
+.dark{--bg:#1a1817;--sur:#252220;--s2:#2d2a28;--s3:#3d3a37;--ink:#e8e4e1;--ik2:#b8b3af;--mu:#8d8782;--ln:#353230;--ad:rgba(13,148,136,0.15);--sb:#0d2e1a;--db:#3f1a1a}
+.dark .scard{box-shadow:0 1px 3px rgba(0,0,0,.2),0 16px 48px rgba(0,0,0,.35)}
+.dark .scard.ok{box-shadow:0 0 0 3px var(--su),0 16px 48px rgba(0,0,0,.35)}
+.dark .scard.no{box-shadow:0 0 0 3px var(--da),0 16px 48px rgba(0,0,0,.35)}
+.dark .dz{border-color:#3d3a37}.dark .ldot{background:#4d4a47}.dark .wdot{background:#4d4a47}
+.dark .mbtn.ac{box-shadow:0 1px 2px rgba(0,0,0,.3)}.dark .mbtn.ac{color:var(--ink)}
+.dark tr:hover td{background:#2d2a28}.dark th:hover{background:#353230}
+.dark .modal-overlay{background:rgba(0,0,0,.6)}.dark .toast{background:#e8e4e1;color:#1a1817}
+.dark .wli.ac,.dark .fitem.ac{color:#2dd4bf}
+.dark .act.no{border-color:#5c1a1a}.dark .act.no:hover{background:#3f1a1a}
+.dark .act.ok{border-color:#0d3d1a}.dark .act.ok:hover{background:#0d2e1a}
+.dark .act.rv{background:#2d2410;border-color:#5c4a18}.dark .act.rv:hover{background:#3d3018}
+.dark .dbtn2.rst:hover{background:#3f1a1a}
+.dark .dbtn2.exp{background:#0d1a3a;color:#60a5fa}.dark .dbtn2.exp:hover{background:#152540}
+.dark .dbtn2.imp{background:#1a1035;color:#a78bfa}.dark .dbtn2.imp:hover{background:#251845}
+.dark .spbtn{background:#2d2a28;border-color:#3d3a37}.dark .spbtn:hover{background:#3d3a37}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;height:100vh;overflow:hidden;-webkit-font-smoothing:antialiased}
 button,input{font:inherit;outline:none}button{cursor:pointer;background:none;border:none}
@@ -146,6 +162,7 @@ td{padding:9px 14px;border-bottom:1px solid var(--ln);max-width:220px;overflow:h
 <div class="sbi"><span>⭐</span><span class="sv" id="msv">0</span><span class="sl">掌握</span></div><div class="sd"></div>
 <div class="sbi"><span>💎</span><span class="sv" id="xpv">0</span><span class="sl">Lv.<span id="lvv">1</span></span></div><div class="ssp"></div>
 <div class="msw"><button class="mbtn ac" data-m="smart">🧠 智能</button><button class="mbtn" data-m="random">🎲 随机</button><button class="mbtn" data-m="seq">📋 顺序</button></div>
+<button class="ibtn" id="dmtog" title="夜间模式">🌙</button>
 <button class="ibtn" id="sdtog">☰</button>
 </div>
 
@@ -557,6 +574,14 @@ $('rstbtn').addEventListener('click',()=>{
 $('expbtn').addEventListener('click',exportData);
 $('impbtn').addEventListener('click',()=>$('impfin').click());
 $('impfin').addEventListener('change',e=>{if(e.target.files[0])importData(e.target.files[0])});
+
+// Dark mode
+let dm=localStorage.getItem('vh3_dark')==='1';
+if(dm){document.documentElement.classList.add('dark');$('dmtog').textContent='☀️'}
+$('dmtog').addEventListener('click',()=>{
+  dm=!dm;document.documentElement.classList.toggle('dark',dm);
+  localStorage.setItem('vh3_dark',dm?'1':'0');$('dmtog').textContent=dm?'☀️':'🌙';
+});
 
 // Keyboard
 document.addEventListener('keydown',e=>{
