@@ -16,6 +16,8 @@
 .dark tr:hover td{background:#2d2a28}.dark th:hover{background:#353230}
 .dark .modal-overlay{background:rgba(0,0,0,.6)}.dark .toast{background:#e8e4e1;color:#1a1817}
 .dark .wli.ac,.dark .fitem.ac{color:#2dd4bf}
+.dark .wlist{scrollbar-color:var(--s3) transparent}
+.dark .study{scrollbar-color:var(--s3) transparent}
 .dark .act.no{border-color:#5c1a1a}.dark .act.no:hover{background:#3f1a1a}
 .dark .act.ok{border-color:#0d3d1a}.dark .act.ok:hover{background:#0d2e1a}
 .dark .act.rv{background:#2d2410;border-color:#5c4a18}.dark .act.rv:hover{background:#3d3018}
@@ -402,13 +404,13 @@ function renderCard(){
   $('npos').textContent=(qi+1)+' / '+q.length;
 
   // Scroll sidebar
-  requestAnimationFrame(()=>{let a=$('wlist').querySelector('.wli.ac');if(a)a.scrollIntoView({block:'nearest',behavior:'smooth'})});
+  requestAnimationFrame(()=>{let a=$('wlist').querySelector('.wli.ac');if(a)a.scrollIntoView({block:'center',behavior:'smooth'})});
 }
 function xsec(title,icon,arr,fn){
   return '<details class="xsec"><summary>'+icon+' '+title+' ('+arr.length+')</summary><div class="xbody">'+arr.map(fn).join('')+'</div></details>';
 }
 
-function advCard(d){qi+=d;if(qi<0)qi=q.length-1;if(qi>=q.length){buildQ();qi=0}flc=false;let c=$('scard');c.classList.remove('ok','no');renderCard()}
+function advCard(d){qi+=d;if(qi<0)qi=q.length-1;if(qi>=q.length){buildQ();qi=0}flc=false;let c=$('scard');c.classList.remove('ok','no');renderCard();renderSide()}
 function onKnow(){if(!q.length)return;recReview(items[q[qi]].id,true);let c=$('scard');c.classList.add('ok');setTimeout(()=>c.classList.remove('ok'),400);advCard(1)}
 function onNo(){if(!q.length)return;recReview(items[q[qi]].id,false);let c=$('scard');c.classList.add('no');setTimeout(()=>c.classList.remove('no'),400);flc=false;renderCard()}
 function onRv(){flc=!flc;renderCard()}
