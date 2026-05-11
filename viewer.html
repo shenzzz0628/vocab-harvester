@@ -402,9 +402,6 @@ function renderCard(){
   if(ex.exam?.length)eh+=xsec('📝 真题','📝',ex.exam,(e,i)=>'<p class="xline"><b>Q:</b> '+e.question+'<br>'+e.choices.map((c,j)=>(j+1===e.rightIdx?'<b>✓'+c+'</b>':c)).join(' / ')+'<br><span style="color:var(--mu);font-size:10px">'+e.answer+'</span></p>');
   $('cextras').innerHTML=eh;
   $('npos').textContent=(qi+1)+' / '+q.length;
-
-  // Scroll sidebar
-  requestAnimationFrame(()=>{let a=$('wlist').querySelector('.wli.ac');if(a)a.scrollIntoView({block:'center',behavior:'smooth'})});
 }
 function xsec(title,icon,arr,fn){
   return '<details class="xsec"><summary>'+icon+' '+title+' ('+arr.length+')</summary><div class="xbody">'+arr.map(fn).join('')+'</div></details>';
@@ -429,7 +426,7 @@ function renderSide(){
     let i=parseInt(btn.dataset.i),p=q.indexOf(i);if(p>=0)qi=p;else{q=[i,...q.filter(j=>j!==i)];qi=0}flc=false;renderCard();
     if(window.innerWidth<780) $('side').classList.remove('op');
   })});
-  if(cur>=0) requestAnimationFrame(()=>{let a=$('wlist').querySelector('.wli.ac');if(a)a.scrollIntoView({block:'center',behavior:'smooth'})});
+  if(cur>=0) requestAnimationFrame(()=>{let a=$('wlist').querySelector('.wli.ac');if(a){let c=$('wlist');c.scrollTo({top:a.offsetTop-c.clientHeight/2+a.offsetHeight/2,behavior:'smooth'})}});
 }
 async function loadFileList(){
   cfiles=[];
