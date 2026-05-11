@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>别时容易见时难</title>
 <style>
-:root{--bg:#f6f4f1;--sur:#fff;--s2:#f2f0ec;--s3:#e7e4df;--ink:#1b1816;--ik2:#45413d;--mu:#7d7872;--ln:#e9e6e2;--ac:#0d9488;--ad:rgba(13,148,136,0.08);--su:#16a34a;--sb:#f0fdf4;--da:#dc2626;--db:#fef2f2;--am:#d97706;--bl:#2563eb;--pu:#7c3aed;--ra:16px;--rs:10px;--rx:8px}
+:root{--bg:#f6f4f1;--sur:#fff;--s2:#f2f0ec;--s3:#e7e4df;--ink:#1b1816;--ik2:#45413d;--mu:#7d7872;--ln:#e9e6e2;--ac:#0d9488;--ad:rgba(13,148,136,0.08);--su:#16a34a;--sb:#f0fdf4;--da:#dc2626;--db:#fef2f2;--am:#d97706;--bl:#2563eb;--pu:#7c3aed;--ra:16px;--rs:10px;--rx:8px;--zs:1}
 .dark{--bg:#1a1817;--sur:#252220;--s2:#2d2a28;--s3:#3d3a37;--ink:#e8e4e1;--ik2:#b8b3af;--mu:#8d8782;--ln:#353230;--ad:rgba(13,148,136,0.15);--sb:#0d2e1a;--db:#3f1a1a}
 .dark .scard{box-shadow:0 1px 3px rgba(0,0,0,.2),0 16px 48px rgba(0,0,0,.35)}
 .dark .scard.ok{box-shadow:0 0 0 3px var(--su),0 16px 48px rgba(0,0,0,.35)}
@@ -68,7 +68,7 @@ button,input{font:inherit;outline:none}button{cursor:pointer;background:none;bor
 .mbtn{height:26px;padding:0 8px;border-radius:4px;font-size:10px;font-weight:700;color:var(--mu)}.mbtn:hover{color:var(--ik2)}.mbtn.ac{background:var(--sur);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.04)}
 .ibtn{width:30px;height:30px;border-radius:var(--rx);font-size:15px;color:var(--mu);display:flex;align-items:center;justify-content:center}.ibtn:hover{background:var(--s2)}
 
-.study{flex:1;overflow-y:auto;display:flex;flex-direction:column;align-items:center;padding:22px 16px 36px}
+.study{flex:1;overflow-y:auto;display:flex;flex-direction:column;align-items:center;padding:22px 16px 36px;zoom:var(--zs)}
 .welc{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;width:100%;max-width:540px;text-align:center}
 .dz{border:2px dashed #d6d3d0;border-radius:16px;background:var(--sur);padding:40px 24px;transition:all .2s}.dz.dover{border-color:var(--ac);background:var(--ad)}
 .dz h2{font-size:22px;font-weight:800;margin-bottom:6px}.dz .dp{font-size:13px;color:var(--mu);margin:4px 0}
@@ -138,6 +138,10 @@ td{padding:9px 14px;border-bottom:1px solid var(--ln);max-width:220px;overflow:h
 @keyframes tIn{from{opacity:0;transform:translateX(-50%) translateY(-18px)}}@keyframes tOut{to{opacity:0;transform:translateX(-50%) translateY(-18px)}}
 .fitem-wrap{display:flex;align-items:center;gap:0}.fitem-wrap .fitem{flex:1}.fdel{width:22px;height:22px;border-radius:50%;font-size:11px;color:var(--mu);display:flex;align-items:center;justify-content:center;flex-shrink:0;opacity:0;transition:opacity .15s}.fitem-wrap:hover .fdel{opacity:1}.fdel:hover{background:var(--db);color:var(--da)}.fidb{font-size:9px;color:var(--ac);font-weight:600}.fup{font-size:9px;padding:1px 5px;border-radius:6px;background:var(--ad);color:#0f766e;font-weight:700}
 @media(min-width:781px){.app.side-closed .side{width:0;min-width:0;border-right:none;overflow:hidden}.app.side-closed .side>*{display:none}}
+.ftbar{position:fixed;bottom:20px;right:20px;z-index:50;display:flex;align-items:center;gap:4px;background:var(--sur);border:1px solid var(--ln);border-radius:24px;padding:4px 8px;box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.ftbtn{width:36px;height:36px;border-radius:50%;font-size:16px;color:var(--ik2);display:flex;align-items:center;justify-content:center;transition:all .12s}.ftbtn:hover{background:var(--s2);color:var(--ink)}
+.ftlbl{font-size:11px;font-weight:700;color:var(--ik2);min-width:36px;text-align:center;cursor:pointer;padding:4px 2px;border-radius:var(--rx)}.ftlbl:hover{background:var(--s2)}
+.ftsep{width:1px;height:18px;background:var(--ln)}
 .tapz{position:absolute;top:46px;bottom:0;width:60px;z-index:25;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;user-select:none}
 .tapz span{font-size:36px;color:var(--mu);opacity:.15;transition:opacity .15s;pointer-events:none}
 .tapz:active{background:rgba(13,148,136,0.06)}.tapz:active span{opacity:.5}
@@ -148,6 +152,7 @@ td{padding:9px 14px;border-bottom:1px solid var(--ln);max-width:220px;overflow:h
 .side{position:fixed;left:-280px;top:0;bottom:0;width:280px;min-width:280px;box-shadow:4px 0 25px rgba(0,0,0,.12)}.side.op{left:0}
 .sbar{gap:6px;padding:5px 10px}.sd{display:none}.sl{display:none}.mbtn{font-size:9px;padding:0 6px}
 .study{padding:14px 8px 28px}.scard{padding:24px 16px;border-radius:var(--rs)}.word{font-size:30px}
+.ftbar{bottom:10px;right:8px;gap:2px;padding:3px 6px}.ftbtn{width:30px;height:30px;font-size:14px}
 .acts{gap:5px}.act{height:42px;font-size:12px}.dz{padding:28px 14px}
 }
 </style>
@@ -194,6 +199,13 @@ td{padding:9px 14px;border-bottom:1px solid var(--ln);max-width:220px;overflow:h
 </div>
 <div class="tapz tapz-l hid" id="tapL"><span>‹</span></div>
 <div class="tapz tapz-r hid" id="tapR"><span>›</span></div>
+<div class="ftbar" id="ftbar">
+<button class="ftbtn" id="zmout" title="缩小">−</button>
+<span class="ftlbl" id="zmlbl">100%</span>
+<button class="ftbtn" id="zmin" title="放大">+</button>
+<div class="ftsep"></div>
+<button class="ftbtn" id="fstog" title="全屏模式" style="font-size:14px">⛶</button>
+</div>
 </main>
 </div>
 
@@ -204,7 +216,7 @@ td{padding:9px 14px;border-bottom:1px solid var(--ln);max-width:220px;overflow:h
 <button class="dbtn2 exp" id="expbtn">📤 导出学习数据</button>
 <button class="dbtn2 imp" id="impbtn">📥 导入学习数据</button>
 <input type="file" id="impfin" accept=".json" hidden>
-<p class="sethint" style="color:var(--ac);font-weight:600">v2.2 · 数据保存在浏览器本地</p><div class="mrow" style="margin-top:12px"><label>⌨ 快捷键</label><div style="font-size:11px;color:var(--ik2);line-height:1.6"><b>← →</b> 前后翻词 &nbsp;<b>空格</b> 下一个<br><b>1/A</b> 不认识 &nbsp;<b>2/D</b> 认识 &nbsp;<b>3/S/F</b> 显隐<br><b>R</b> 朗读 &nbsp;<b>Esc</b> 返回卡片视图</div></div>
+<p class="sethint" style="color:var(--ac);font-weight:600">v2.2 · 数据保存在浏览器本地</p><div class="mrow" style="margin-top:12px"><label>⌨ 快捷键</label><div style="font-size:11px;color:var(--ik2);line-height:1.6"><b>← →</b> 前后翻词 &nbsp;<b>空格</b> 下一个<br><b>1/A</b> 不认识 &nbsp;<b>2/D</b> 认识 &nbsp;<b>3/S/F</b> 显隐<br><b>R</b> 朗读 &nbsp;<b>Esc</b> 返回卡片视图<br><b>Ctrl+/-</b> 缩放 &nbsp;<b>Ctrl+0</b> 重置缩放</div></div>
 </div></div></div>
 
 <script>
@@ -597,9 +609,34 @@ $('dmtog').addEventListener('click',()=>{
   localStorage.setItem('vh3_dark',dm?'1':'0');$('dmtog').textContent=dm?'☀️':'🌙';
 });
 
+// Zoom
+let zs=parseFloat(localStorage.getItem('vh3_zoom'))||1;
+function apz(){
+  document.documentElement.style.setProperty('--zs',zs);
+  $('zmlbl').textContent=Math.round(zs*100)+'%';
+}
+apz();
+$('zmout').addEventListener('click',()=>{zs=Math.max(0.6,zs-0.1);localStorage.setItem('vh3_zoom',zs);apz()});
+$('zmin').addEventListener('click',()=>{zs=Math.min(2,zs+0.1);localStorage.setItem('vh3_zoom',zs);apz()});
+$('zmlbl').addEventListener('click',()=>{zs=1;localStorage.setItem('vh3_zoom',zs);apz()});
+
+// Fullscreen
+function isFS(){return document.fullscreenElement||document.webkitFullscreenElement}
+function upFS(){$('fstog').textContent=isFS()?'✕':'⛶'}
+$('fstog').addEventListener('click',()=>{
+  if(isFS()){(document.exitFullscreen||document.webkitExitFullscreen).call(document)}
+  else{(document.documentElement.requestFullscreen||document.documentElement.webkitRequestFullscreen).call(document.documentElement)}
+});
+document.addEventListener('fullscreenchange',upFS);
+document.addEventListener('webkitfullscreenchange',upFS);
+
 // Keyboard
 document.addEventListener('keydown',e=>{
   if(e.target.tagName==='INPUT'||e.target.tagName==='SELECT'||e.target.tagName==='TEXTAREA')return;
+  // Zoom shortcuts (Ctrl/Cmd +/=/-/0)
+  if((e.ctrlKey||e.metaKey)&&(e.key==='='||e.key==='+')){e.preventDefault();zs=Math.min(2,zs+0.1);localStorage.setItem('vh3_zoom',zs);apz()}
+  if((e.ctrlKey||e.metaKey)&&(e.key==='-'||e.key==='_')){e.preventDefault();zs=Math.max(0.6,zs-0.1);localStorage.setItem('vh3_zoom',zs);apz()}
+  if((e.ctrlKey||e.metaKey)&&e.key==='0'){e.preventDefault();zs=1;localStorage.setItem('vh3_zoom',zs);apz()}
   let ic=!$('cdv').classList.contains('hid'),iw=!$('wtv').classList.contains('hid');
   if(ic){if(e.key==='ArrowLeft')advCard(-1);if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();advCard(1)}if(e.key==='1'||e.key==='a')onNo();if(e.key==='2'||e.key==='d')onKnow();if(e.key==='3'||e.key==='s'||e.key==='f')onRv();if(e.key==='r')onSpk()}
   if(iw){if(e.key==='ArrowLeft')advWT(-1);if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();advWT(1)}}
