@@ -53,7 +53,7 @@ button,input{font:inherit;outline:none}button{cursor:pointer;background:none;bor
 .sfoot{padding:6px 10px;border-top:1px solid var(--ln);display:flex;gap:4px}
 .sfbtn{flex:1;height:28px;border-radius:var(--rx);font-size:10px;font-weight:600;color:var(--mu);background:var(--s2);transition:all .1s}.sfbtn:hover{background:var(--s3);color:var(--ink)}
 
-.main{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.main{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden;position:relative}
 .sbar{display:flex;align-items:center;gap:10px;padding:8px 18px;background:var(--sur);border-bottom:1px solid var(--ln);flex-shrink:0;flex-wrap:wrap}
 .sbi{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:600;white-space:nowrap}
 .sbi .sv{font-weight:800}.sbi .sl{color:var(--mu);font-weight:500;font-size:10px}
@@ -136,7 +136,14 @@ td{padding:9px 14px;border-bottom:1px solid var(--ln);max-width:220px;overflow:h
 .toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:8px 20px;border-radius:20px;font-size:13px;font-weight:700;z-index:200;pointer-events:none;animation:tIn .3s ease,tOut .3s ease 2s forwards}
 @keyframes tIn{from{opacity:0;transform:translateX(-50%) translateY(-18px)}}@keyframes tOut{to{opacity:0;transform:translateX(-50%) translateY(-18px)}}
 .fitem-wrap{display:flex;align-items:center;gap:0}.fitem-wrap .fitem{flex:1}.fdel{width:22px;height:22px;border-radius:50%;font-size:11px;color:var(--mu);display:flex;align-items:center;justify-content:center;flex-shrink:0;opacity:0;transition:opacity .15s}.fitem-wrap:hover .fdel{opacity:1}.fdel:hover{background:var(--db);color:var(--da)}.fidb{font-size:9px;color:var(--ac);font-weight:600}.fup{font-size:9px;padding:1px 5px;border-radius:6px;background:var(--ad);color:#0f766e;font-weight:700}
+@media(min-width:781px){.app.side-closed .side{width:0;min-width:0;border-right:none;overflow:hidden}.app.side-closed .side>*{display:none}}
+.tapz{position:absolute;top:46px;bottom:0;width:60px;z-index:25;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;user-select:none}
+.tapz span{font-size:36px;color:var(--mu);opacity:.15;transition:opacity .15s;pointer-events:none}
+.tapz:active{background:rgba(13,148,136,0.06)}.tapz:active span{opacity:.5}
+.tapz-l{left:0}.tapz-r{right:0}
 @media(max-width:780px){
+.app.side-closed .side{left:-280px!important;width:280px;min-width:280px}.app.side-closed .side>*{display:block}
+.tapz{width:44px}.tapz span{font-size:28px}
 .side{position:fixed;left:-280px;top:0;bottom:0;width:280px;min-width:280px;box-shadow:4px 0 25px rgba(0,0,0,.12)}.side.op{left:0}
 .sbar{gap:6px;padding:5px 10px}.sd{display:none}.sl{display:none}.mbtn{font-size:9px;padding:0 6px}
 .study{padding:14px 8px 28px}.scard{padding:24px 16px;border-radius:var(--rs)}.word{font-size:30px}
@@ -184,6 +191,8 @@ td{padding:9px 14px;border-bottom:1px solid var(--ln);max-width:220px;overflow:h
 
 <div class="hid" id="rtv"><div class="tblbar"><span class="tblttl" id="rtttl"></span><button class="backbtn" id="rtbak">← 返回卡片</button></div><div class="tree-wrap" id="troot"></div></div>
 </div>
+<div class="tapz tapz-l hid" id="tapL"><span>‹</span></div>
+<div class="tapz tapz-r hid" id="tapR"><span>›</span></div>
 </main>
 </div>
 
@@ -340,7 +349,7 @@ function toast(m){
 }
 
 // ─── Views ─────────────────────────────────────────────────
-function showV(n){['welc','ldv','cdv','wtv','tbv','rtv'].forEach(v=>$(v).classList.toggle('hid',v!==n))}
+function showV(n){['welc','ldv','cdv','wtv','tbv','rtv'].forEach(v=>$(v).classList.toggle('hid',v!==n));$('tapL').classList.toggle('hid',n!=='cdv'&&n!=='wtv');$('tapR').classList.toggle('hid',n!=='cdv'&&n!=='wtv')}
 
 // ─── Card ──────────────────────────────────────────────────
 function renderCard(){
@@ -537,7 +546,11 @@ document.querySelectorAll('.ftab').forEach(t=>{t.addEventListener('click',()=>{
 })});
 
 $('ssrch').addEventListener('input',()=>{srch=$('ssrch').value;renderSide()});
-$('sdtog').addEventListener('click',()=>$('side').classList.toggle('op'));
+$('sdtog').addEventListener('click',()=>{if(window.innerWidth<=780)$('side').classList.toggle('op');else document.querySelector('.app').classList.toggle('side-closed')});
+
+// Tap zones
+$('tapL').addEventListener('click',()=>{if(!$('cdv').classList.contains('hid'))advCard(-1);if(!$('wtv').classList.contains('hid'))advWT(-1)});
+$('tapR').addEventListener('click',()=>{if(!$('cdv').classList.contains('hid'))advCard(1);if(!$('wtv').classList.contains('hid'))advWT(1)});
 
 // File inputs
 $('filein').addEventListener('change',e=>handleFiles(e.target.files));
