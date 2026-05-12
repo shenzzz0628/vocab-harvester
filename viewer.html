@@ -425,7 +425,7 @@ function renderSide(){
     let i=parseInt(btn.dataset.i),p=q.indexOf(i);if(p>=0)qi=p;else{q=[i,...q.filter(j=>j!==i)];qi=0}flc=false;renderCard();
     if(window.innerWidth<780) $('side').classList.remove('op');
   })});
-  if(cur>=0) requestAnimationFrame(()=>{let a=$('wlist').querySelector('.wli.ac');if(a){let c=$('wlist');c.scrollTo({top:a.offsetTop-c.clientHeight/2+a.offsetHeight/2,behavior:'smooth'})}});
+  if(cur>=0) requestAnimationFrame(()=>{let a=$('wlist').querySelector('.wli.ac');if(a){a.scrollIntoView({block:'center',behavior:'instant'})}});
 }
 async function loadFileList(){
   cfiles=[];
