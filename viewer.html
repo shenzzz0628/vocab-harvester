@@ -47,7 +47,7 @@ button,input{font:inherit;outline:none}button{cursor:pointer;background:none;bor
 
 .srch{width:100%;height:30px;padding:0 8px;border:1px solid var(--ln);border-radius:var(--rx);font-size:12px;background:var(--sur);margin-bottom:4px}.srch:focus{border-color:var(--ac);box-shadow:0 0 0 3px var(--ad)}
 .wlist{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:1px}
-.wli{display:flex;align-items:center;justify-content:space-between;padding:5px 8px;border-radius:var(--rx);font-size:12px;text-align:left;color:var(--ik2);transition:background .1s}
+.wli{display:flex;align-items:center;justify-content:space-between;padding:5px 8px;border-radius:var(--rx);font-size:12px;text-align:left;color:var(--ik2);transition:background .1s;content-visibility:auto;contain-intrinsic-size:auto 28px}
 .wli:hover{background:var(--s2)}.wli.ac{background:var(--ad);color:#0f766e;font-weight:700}
 .wli .ww{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .wdot{width:5px;height:5px;border-radius:50%;background:#d6d3d0;flex-shrink:0}
@@ -416,13 +416,11 @@ function onSpk(){if(!q.length)return;let it=items[q[qi]];if(!('speechSynthesis' 
 
 // ─── Sidebar ───────────────────────────────────────────────
 function renderSide(){
-  let idxs=filtIdxs(),max=200,shown=idxs.slice(0,max);
-  let cur=q.length>0?q[qi]:-1;
-  if(cur>=0&&!shown.includes(cur)) shown.push(cur);
-  $('wlist').innerHTML=shown.map(i=>{
+  let idxs=filtIdxs(),cur=q.length>0?q[qi]:-1;
+  $('wlist').innerHTML=idxs.map(i=>{
     let it=items[i],w=ws(it.id),ac=q.length>0&&q[qi]===i;
     return '<button class="wli'+(ac?' ac':'')+'" data-i="'+i+'"><span class="ww">'+it.word+'</span><span class="wdot l'+Math.min(w.level,MAXL)+'"></span></button>';
-  }).join('')+(idxs.length>max&&!shown.includes(idxs[max])?'<p style="text-align:center;color:var(--mu);font-size:10px;padding:6px">... 还有 '+(idxs.length-max)+' 个</p>':'');
+  }).join('');
   $('wlist').querySelectorAll('.wli').forEach(btn=>{btn.addEventListener('click',()=>{
     let i=parseInt(btn.dataset.i),p=q.indexOf(i);if(p>=0)qi=p;else{q=[i,...q.filter(j=>j!==i)];qi=0}flc=false;renderCard();
     if(window.innerWidth<780) $('side').classList.remove('op');
@@ -629,6 +627,20 @@ $('fstog').addEventListener('click',()=>{
 });
 document.addEventListener('fullscreenchange',upFS);
 document.addEventListener('webkitfullscreenchange',upFS);
+
+// ─── Swipe ──────────────────────────────────────────────────
+let tsX=0,tsY=0,tsT=0;
+document.addEventListener('touchstart',e=>{
+  if(e.target.closest('.side')||e.target.closest('.modal-overlay')||e.target.closest('button')||e.target.closest('summary')||e.target.closest('details'))return;
+  tsX=e.touches[0].clientX;tsY=e.touches[0].clientY;tsT=Date.now();
+},{passive:true});
+document.addEventListener('touchend',e=>{
+  let dx=e.changedTouches[0].clientX-tsX,dy=e.changedTouches[0].clientY-tsY;
+  if(Date.now()-tsT>600||Math.abs(dx)<40||Math.abs(dy)>Math.abs(dx)*1.2)return;
+  let ic=!$('cdv').classList.contains('hid'),iw=!$('wtv').classList.contains('hid');
+  if(ic)advCard(dx>0?-1:1);
+  else if(iw)advWT(dx>0?-1:1);
+});
 
 // Keyboard
 document.addEventListener('keydown',e=>{
