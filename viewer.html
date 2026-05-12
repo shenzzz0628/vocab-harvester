@@ -295,8 +295,9 @@ function loadFromJson(json,filename){
 }
 async function loadFile(filename){
   showV('ldv');
-  try{let r=await fetch(filename);if(!r.ok)throw Error('fail');loadFromJson(await r.json(),filename);return}catch{}
   try{let entry=await idbLoad(filename);if(entry){loadFromJson(JSON.parse(entry.content),filename);return}}catch{}
+  try{let r=await fetch(filename);if(!r.ok)throw Error('fail');let json=await r.json();loadFromJson(json,filename);
+  try{await idbSave(filename,JSON.stringify(json))}catch{}return}catch{}
   $('shint').textContent='\u274c \u52a0\u8f7d\u5931\u8d25: '+filename;showV('welc')
 }
 async function handleFiles(fl){
